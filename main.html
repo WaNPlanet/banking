@@ -4,203 +4,213 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link rel="shortcut icon" type="img" href="Untitled_design-removebg-preview.png">
-    <link rel="stylesheet" href="mainStyle.css" />
-    <!-- <link rel="stylesheet" href="customestyle.css"> -->
-    <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/jvectormap@2.0.5/jquery-jvectormap.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jvectormap@2.0.5/jquery-jvectormap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jvectormap@2.0.5/maps/jquery-jvectormap-world-mill.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <!-- <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/> -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- Boxicons CDN Link -->
-    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
+  <style>
+    .container.map {
+      height: auto;
+      min-height: 230px;
+    }
+
+    #world-map-gdp {
+      height: 230px;
+      width: 100%;
+    }
+        /* Custom Sidebar Styles */
+        .sidebar {
+      min-height: 100vh;
+      background-color: #004242;
+      color: #fff;
+      padding: 10px;
+      position: fixed;
+    }
+
+    .sidebar .logo-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+    }
+
+    .sidebar .logo_name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 10px 0;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #028080;
+    }
+
+    .sidebar ul li a i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .sidebar ul li a .links_name {
+      font-size: 15px;
+    }
+
+    .sidebar ul li .tooltip {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 60px;
+      }
+
+      .sidebar ul li a .links_name {
+        display: none;
+      }
+
+      .sidebar ul li .tooltip {
+        display: inline-block;
+        position: absolute;
+        left: 65px;
+        background-color: #fff;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        white-space: nowrap;
+      }
+
+      .sidebar ul li:hover .tooltip {
+        display: inline-block;
+      }
+    }
+
+  </style>
   <body>
-    <div class="sidebar">
-        <div class="logo-details">
-          <div class="logo_name">Summit Capital</div>
-          <i class="bx bx-menu" id="btn"></i>
+     <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column">
+    <div class="logo-details">
+      <span class="logo_name">Summit Capital</span>
+      <i class="bx bx-menu" id="toggleSidebar"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="#">
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Home</span>
+        </a>
+        <span class="tooltip">Home</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-user"></i>
+          <span class="links_name">User</span>
+        </a>
+        <span class="tooltip">User</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-chat"></i>
+          <span class="links_name">Messages</span>
+        </a>
+        <span class="tooltip">Messages</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Analytics</span>
+        </a>
+        <span class="tooltip">Analytics</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-cart-alt"></i>
+          <span class="links_name">Order</span>
+        </a>
+        <span class="tooltip">Order</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="links_name">Setting</span>
+        </a>
+        <span class="tooltip">Setting</span>
+      </li>
+      <li>
+        <a href="login.html">
+          <i class="bx bx-log-out"></i>
+          <span class="links_name">Log Out</span>
+        </a>
+        <span class="tooltip">Logout</span>
+      </li>
+    </ul>
+  </div>
+    
+    <div class="container-fluid">
+      <section class="home-section py-4">
+        <!-- Content Section -->
+        <div class="row justify-content-evenly align-items-center mt-4">
+          <!-- Map Section -->
+          <div class="container map mt-5">
+            <div id="world-map-gdp"></div>
+          </div>
+          <!-- Cards Section -->
+          <div class="col-12 col-lg-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5>My Cards</h5>
+              <h6><a href="#" style="text-decoration: none;">View All</a></h6>
+            </div>
+            <img src="Add_a_subheading-removebg-preview.png" alt="My Cards" class="img-fluid">
+          </div>
         </div>
-        <ul class="nav-list">
-      
-          <li>
-            <a href="#">
-              <i class="bx bx-grid-alt"></i>
-              <span class="links_name">Home</span>
-            </a>
-            <span class="tooltip">Home</span>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bx bx-user"></i>
-              <span class="links_name">User</span>
-            </a>
-            <span class="tooltip">User</span>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bx bx-chat"></i>
-              <span class="links_name">Messages</span>
-            </a>
-            <span class="tooltip">Messages</span>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bx bx-pie-chart-alt-2"></i>
-              <span class="links_name">Analytics</span>
-            </a>
-            <span class="tooltip">Analytics</span>
-          </li>
-       
-          <li>
-            <a href="#">
-              <i class="bx bx-cart-alt"></i>
-              <span class="links_name">Order</span>
-            </a>
-            <span class="tooltip">Order</span>
-          </li>
-        
-          <li>
-            <a href="#">
-              <i class="bx bx-cog"></i>
-              <span class="links_name">Setting</span>
-            </a>
-            <span class="tooltip">Setting</span>
-          </li>
-          <!-- <li class="profile">
-            <div class="profile-details">
-              <img src="profile.jpg" alt="profileImg" />
-              <div class="name_job">
-                <div class="name">Prem Shahi</div>
-                <div class="job">Web designer</div>
-              </div>
-            </div>
-           <a href="login.html"><i class="bx bx-log-out" id="log_out"></i></a> 
-          </li> -->
-
-          <li class="">
-            <a href="login.html">
-              <i class="bx bx-log-out"></i>
-              <span class="links_name">Log Out</span>
-            </a>
-            <span class="tooltip">Logout</span>
-            <!-- <div class="profile-details">
-              <img src="profile.jpg" alt="profileImg" />
-              <div class="name_job">
-                <div class="name">Prem Shahi</div>
-                <div class="job">Web designer</div>
-              </div>
-            </div> -->
-          </li>
-        </ul>
-      </div>
-
-      <div class="row">
-        <section class="home-section">
-          <br>
-
-          <div>
-            <h2 style="margin-left: 40px;">My Dashboard</h2>
-          </div>
-          <div style="display: flex;">
-            <div class="form-group form-button" style="margin-left: 40px;">
-              <a href="main.html"><input type="button" name="signup" id="signup" class="form-submit" value="All"/></a>
-            </div>
-            <div class="form-group form-button" style="margin-left: 10px;">
-              <a href="main.html"><input type="button" name="signup" id="signup" class="form-submit" value="Withdrawals"/></a>
-            </div>
-            <div class="form-group form-button" style="margin-left: 10px;">
-              <a href="main.html"><input type="button" name="signup" id="signup" class="form-submit" value="Transfers"/></a>
-            </div>
-            <div class="form-group form-button" style="margin-left: 10px;">
-              <a href="main.html"><input type="button" name="signup" id="signup" class="form-submit" value="Deposits"/></a>
-            </div>
-          </div>
-
-
-          <div class="row justify-content-evenly" >
-            <div class="col-6" style="margin-right: 85px;">
-              <div class="container map">
-                <div id="world-map-gdp" class="col-md-8 col-sm-12 " style="height:230px;"></div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="col-8" style="display: flex;justify-content: space-between;">
-                <h5>My Cards</h5>
-                <h6><a href="#" style="text-decoration: none;">View All</a></h6> 
-              </div>
-              
-             <img src="Add_a_subheading-removebg-preview.png" alt="" style="width: 60%;">
-            </div>
-          </div>
-        </section>
-      </div>
+      </section>
+    </div>
+    
      
     
 
-    
-       <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="../vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="../vendors/Flot/jquery.flot.js"></script>
-    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="../vendors/Flot/jquery.flot.time.js"></script>
-    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="../vendors/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-      
-      <!-- <script src="script.js">
-      </script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"> -->
-       
+    <script>
+      const sidebar = document.querySelector('.sidebar');
+      const toggleSidebar = document.getElementById('toggleSidebar');
+  
+      toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+      });
     </script>
-  </body>
+
+<script>
+  $(document).ready(function () {
+    $('#world-map-gdp').vectorMap({
+      map: 'world_mill',
+      backgroundColor: '#E4E9F7',
+      regionStyle: {
+        initial: {
+          fill: '#1abc9c',
+        },
+      },
+    });
+  });
+</script>
+</body>
 </html>
